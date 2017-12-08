@@ -1,0 +1,14 @@
+The following is a log of my work on the skills assessment.
+
+Taking some time to read up on the express and debug modules...
+
+OK... here's what it looks like we're dealing with.
+- Server listens on port 3000 while running
+- When a post is made to /api/usages, server catches the payload and appends it as is to the usages array
+- Server looks at the length of the array and calls that the id for this call
+- Response echoes back the id in a simple json payload
+
+Potential areas of concern
+- Most obviously, the array strictly grows.  That'll be an issue, so let's get some buffering on that.  One presumes in a real life scenario we'd be deserializing the payloads before handing them off to a database, but for this purpose a simple log file will be a sufficient stand-in.
+- If the array no longer grows to eternity, we'll need to separately track the ID that we hand back.  We'll need to ensure competing over that resource doesn't block the thread.
+- Express has some good general tips here https://expressjs.com/en/advanced/best-practice-performance.html.  At least some of that is relevant.

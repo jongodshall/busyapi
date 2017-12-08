@@ -4,12 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//require('log-buffer');   //Buffer the log output so it won't block the thread
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
 // simple in-memory usage store
 var usages = [];
 app.usages = usages;
