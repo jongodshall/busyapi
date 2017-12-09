@@ -1,18 +1,23 @@
 var express = require('express');
+var compression = require('compression');  //jrg - Per recommendation, compress the response
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var shortid = require('shortid');
 //require('log-buffer');   //Buffer the log output so it won't block the thread
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+app.use(compression());
 // simple in-memory usage store
 var usages = [];
 app.usages = usages;
+//app.outstream = fs.createWriteStream('blob/' + shortid.generate() + '.txt');   //jrg - if we want the overall buffer as a solution
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

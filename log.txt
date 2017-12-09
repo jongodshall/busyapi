@@ -12,3 +12,15 @@ Potential areas of concern
 - Most obviously, the array strictly grows.  That'll be an issue, so let's get some buffering on that.  One presumes in a real life scenario we'd be deserializing the payloads before handing them off to a database, but for this purpose a simple log file will be a sufficient stand-in.
 - If the array no longer grows to eternity, we'll need to separately track the ID that we hand back.  We'll need to ensure competing over that resource doesn't block the thread.
 - Express has some good general tips here https://expressjs.com/en/advanced/best-practice-performance.html.  At least some of that is relevant.
+
+
+------------------
+Here's the plan:
+- We don't want a persistent array.  Eventually the size becomes unmanageable, and it also somewhat exposes previous calls' payloads to future calls.  We're not currently looking at it but there's no reason for it to be there.
+- Each call should save off it's own payload.  We'll use the file system as a stand-in for a database API.
+- Rather than the length of the array (since it won't be there anymore), we'll generate an ID for each call and send that back.  We'll also save the ID with the payload to make it a useful piece of information.
+- It's possible we need to get some information back for the database to include in the response (for example, if SQL is generating a primary key).  We'll account for both cases.
+- Apply the best practices mentioned in the documentation.
+
+-------------------
+After a bit more reading, discovered the cluster module.  This is clearly important for the task, so we're adding it.

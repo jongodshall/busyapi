@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www --trace-sync-io"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -13,6 +13,7 @@
     "jade": "~1.11.0",
     "log-buffer": "0.0.3",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "shortid": "^2.2.8"
   }
 }
