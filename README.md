@@ -14,20 +14,14 @@ I have 2 goals in this:
 ## Main changes
 
   * Change the main usages call to no longer push everything to the same array.  We want each call to be independent to avoid having to wait on flushing a large array.
-
-  ...* In the example, we're using the file system to represent a call to a database API
-
-  ...* The version represented here sends the response in the API callback.  This seems like a more realistic use case.
-
-  ...* There is an alternative version (commented) where we instead dump the payload straight into a write buffer.  The idea behind this would be that another process is looking for those files and eventually processing them to their final destination.  This is potentially even faster, as it minimizes the work we're asking our web server to do/wait on, but we lose the ability to respond to the user with information from the database so it is possible this wouldn't be a viable option.
+    ** In the example, we're using the file system to represent a call to a database API
+    ** The version represented here sends the response in the API callback.  This seems like a more realistic use case.
+    ** There is an alternative version (commented) where we instead dump the payload straight into a write buffer.  The idea behind this would be that another process is looking for those files and eventually processing them to their final destination.  This is potentially even faster, as it minimizes the work we're asking our web server to do/wait on, but we lose the ability to respond to the user with information from the database so it is possible this wouldn't be a viable option.
 
   * Implement expresses' [best practice recommendations](https://expressjs.com/en/advanced/best-practice-performance.html)
-
-  ...* Compress response Content
-
-  ...* Avoid synchronous calls (in this case, buffering the console)
-
-  ...* Introduce try/catch blocks around potentially error conditions
+    ** Compress response Content
+    ** Avoid synchronous calls (in this case, buffering the console)
+    ** Introduce try/catch blocks around potentially error conditions
 
   * Implement clustering to allow multiple worker threads
 
